@@ -1,7 +1,7 @@
 import React from "react";
 import "./cardStyle.css";
 
-const Card = props => {
+const Card = () => {
   return (
     <div className="card" style={{ borderRadius: "50px" }}>
       <div className="img-container mx-auto">
