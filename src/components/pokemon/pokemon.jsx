@@ -13,7 +13,7 @@ class Pokemon extends Component {
       "https://pokeapi.co/api/v2/pokemon/?limit=4000"
     );
     this.setState({ names });
-    console.log(names.results[0].name);
+    console.log(names.results[0].url[34]);
   }
 
   render() {
@@ -37,7 +37,7 @@ class Pokemon extends Component {
                 {result
                   ? result.slice(0, 20).map(item => (
                       <div className="col-lg-3">
-                        <Card key={item.id} name={item.name} />
+                        <Card key={item.url[34]} name={item.name} />
                       </div>
                     ))
                   : null}
