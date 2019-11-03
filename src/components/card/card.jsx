@@ -1,7 +1,7 @@
 import React from "react";
 import "./cardStyle.css";
 
-const Card = () => {
+const Card = ({ name }) => {
   return (
     <div className="card" style={{ borderRadius: "50px" }}>
       <div className="img-container mx-auto">
@@ -13,7 +13,7 @@ const Card = () => {
           width="180px"
         />
       </div>
-      <div className="name mx-auto">Name</div>
+      <div className="name mx-auto">{name}</div>
     </div>
   );
 };

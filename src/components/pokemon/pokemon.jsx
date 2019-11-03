@@ -1,11 +1,23 @@
 import React, { Component } from "react";
-import "./style.css";
+import axios from "axios";
 import Card from "../card/card";
+import "./style.css";
 
 class Pokemon extends Component {
-  state = {};
+  state = {
+    names: []
+  };
+
+  async componentDidMount() {
+    const { data: names } = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon/?limit=4000"
+    );
+    this.setState({ names });
+    console.log(names.results[0].name);
+  }
 
   render() {
+    const result = this.state.names.results;
     return (
       <React.Fragment>
         <div className="fluid-container">
@@ -22,9 +34,13 @@ class Pokemon extends Component {
                 />
               </div>
               <div className="row mt-5">
-                <div className="col-lg-3">
-                  <Card />
-                </div>
+                {result
+                  ? result.slice(0, 20).map(item => (
+                      <div className="col-lg-3">
+                        <Card key={item.id} name={item.name} />
+                      </div>
+                    ))
+                  : null}
               </div>
             </div>
           </div>
