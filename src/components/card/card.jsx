@@ -17,8 +17,17 @@ class Card extends Component {
     const abilities = this.state.data.abilities;
 
     return (
-      <div className="card" style={{ borderRadius: "50px" }}>
-        <div className="img-container mx-auto">
+      <div
+        className="card"
+        style={{
+          borderRadius: "50px",
+          height: "100%"
+          // background: "#8e9eab",
+          // background: "-webkit-linear-gradient(to right, #8e9eab, #eef2f3)",
+          // background: "linear-gradient(to right, #8e9eab, #eef2f3)"
+        }}
+      >
+        <div className="img-container mt-3 mx-auto">
           <img
             src={"https://pokeres.bastionbot.org/images/pokemon/2.png"}
             alt=""
@@ -28,20 +37,27 @@ class Card extends Component {
           />
         </div>
         <div
-          className="name mx-auto m-2"
+          className="badge badge-light name mx-auto mt-3"
           style={{ fontWeight: "bold", fontSize: "20px" }}
         >
           {name[0].toUpperCase()}
           {name.slice(1)}
         </div>
-        <div className="Ability">Ability</div>
-        {abilities
-          ? abilities.map((ability, i) => (
-              <div className="name m-2" key={i}>
-                {ability.ability.name}
-              </div>
-            ))
-          : null}
+        <div className="m-4">
+          <div className=" Ability badge badge-info ml-2" style={{}}>
+            Ability
+          </div>
+          {abilities
+            ? abilities.map((ability, i) => (
+                <div className="name m-2" style={{ fontWeight: "400" }} key={i}>
+                  <li>
+                    {ability.ability.name[0].toUpperCase()}
+                    {ability.ability.name.slice(1)}
+                  </li>
+                </div>
+              ))
+            : null}
+        </div>
       </div>
     );
   }
