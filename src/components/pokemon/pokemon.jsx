@@ -13,8 +13,12 @@ class Pokemon extends Component {
       "https://pokeapi.co/api/v2/pokemon/?limit=4000"
     );
     this.setState({ names });
-    console.log(names.results[0].url[34]);
   }
+
+  // async abilites(url) {
+  //   const response = await axios.get(url);
+  //   console.log(response);
+  // }
 
   render() {
     const result = this.state.names.results;
@@ -35,9 +39,9 @@ class Pokemon extends Component {
               </div>
               <div className="row mt-5">
                 {result
-                  ? result.slice(0, 20).map(item => (
-                      <div className="col-lg-3">
-                        <Card key={item.url[34]} name={item.name} />
+                  ? result.slice(0, 20).map((item, i) => (
+                      <div className="col-lg-3 mb-4" key={i}>
+                        <Card url={item.url} name={item.name} />
                       </div>
                     ))
                   : null}
