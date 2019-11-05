@@ -13,23 +13,14 @@ class Card extends Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, id } = this.props;
     const abilities = this.state.data.abilities;
 
     return (
-      <div
-        className="card"
-        style={{
-          borderRadius: "50px",
-          height: "100%"
-          // background: "#8e9eab",
-          // background: "-webkit-linear-gradient(to right, #8e9eab, #eef2f3)",
-          // background: "linear-gradient(to right, #8e9eab, #eef2f3)"
-        }}
-      >
+      <div className="card card-sec">
         <div className="img-container mt-3 mx-auto">
           <img
-            src={"https://pokeres.bastionbot.org/images/pokemon/2.png"}
+            src={`https://pokeres.bastionbot.org/images/pokemon/${id + 1}.png`}
             alt=""
             className="img-fluid"
             height="180px"

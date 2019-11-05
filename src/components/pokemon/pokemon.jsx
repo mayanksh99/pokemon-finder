@@ -5,23 +5,33 @@ import "./style.css";
 
 class Pokemon extends Component {
   state = {
-    names: []
+    data: {},
+    searchQuery: ""
   };
 
   async componentDidMount() {
-    const { data: names } = await axios.get(
+    const { data } = await axios.get(
       "https://pokeapi.co/api/v2/pokemon/?limit=4000"
     );
-    this.setState({ names });
+    this.setState({ data });
   }
 
-  // async abilites(url) {
-  //   const response = await axios.get(url);
-  //   console.log(response);
-  // }
+  handleChange = query => {
+    this.setState({ searchQuery: query });
+  };
+
+  filterData = () => {
+    let filteredData = this.state.data.results;
+    if (this.state.searchQuery)
+      filteredData = filteredData.filter(m =>
+        m.name.toLowerCase().startsWith(this.state.searchQuery.toLowerCase())
+      );
+    console.log(filteredData);
+    return filteredData;
+  };
 
   render() {
-    const result = this.state.names.results;
+    const result = this.filterData();
     return (
       <React.Fragment>
         <div className="fluid-container">
@@ -35,13 +45,15 @@ class Pokemon extends Component {
                   className="form-control"
                   type="text"
                   placeholder="Search"
+                  value={this.state.searchQuery}
+                  onChange={e => this.handleChange(e.currentTarget.value)}
                 />
               </div>
               <div className="row mt-5">
                 {result
                   ? result.slice(0, 20).map((item, i) => (
                       <div className="col-lg-3 mb-4" key={i}>
-                        <Card url={item.url} name={item.name} />
+                        <Card id={i} url={item.url} name={item.name} />
                       </div>
                     ))
                   : null}
