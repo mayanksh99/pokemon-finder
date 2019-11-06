@@ -12,15 +12,23 @@ class Card extends Component {
     this.setState({ data });
   }
 
-  render() {
-    const { name, id } = this.props;
-    const abilities = this.state.data.abilities;
+  async componentDidUpdate(prevProps) {
+    if (prevProps === this.state.data.id) {
+      console.log("s");
+      const { data } = await axios.get(this.props.url);
+      this.setState({ data });
+    }
+  }
 
+  render() {
+    const { name } = this.props;
+    const abilities = this.state.data.abilities;
+    const { id } = this.state.data;
     return (
       <div className="card card-sec">
         <div className="img-container mt-3 mx-auto">
           <img
-            src={`https://pokeres.bastionbot.org/images/pokemon/${id + 1}.png`}
+            src={`https://pokeres.bastionbot.org/images/pokemon/${id}.png`}
             alt=""
             className="img-fluid"
             height="180px"

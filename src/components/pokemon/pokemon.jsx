@@ -5,15 +5,21 @@ import "./style.css";
 
 class Pokemon extends Component {
   state = {
-    data: {},
+    data: {
+      name: [],
+      url: []
+    },
     searchQuery: ""
   };
 
   async componentDidMount() {
-    const { data } = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon/?limit=4000"
+    const response = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon/?limit=50"
     );
-    this.setState({ data });
+    this.setState({
+      data: response.map(item => (this.state.data.name = item.name))
+    });
+    console.log(this.state.data.name);
   }
 
   handleChange = query => {
@@ -21,12 +27,11 @@ class Pokemon extends Component {
   };
 
   filterData = () => {
-    let filteredData = this.state.data.results;
+    let filteredData = this.state.data;
     if (this.state.searchQuery)
       filteredData = filteredData.filter(m =>
         m.name.toLowerCase().startsWith(this.state.searchQuery.toLowerCase())
       );
-    console.log(filteredData);
     return filteredData;
   };
 
@@ -49,15 +54,19 @@ class Pokemon extends Component {
                   onChange={e => this.handleChange(e.currentTarget.value)}
                 />
               </div>
-              <div className="row mt-5">
+              {/* <div className="row mt-5">
                 {result
-                  ? result.slice(0, 20).map((item, i) => (
-                      <div className="col-lg-3 mb-4" key={i}>
-                        <Card id={i} url={item.url} name={item.name} />
-                      </div>
-                    ))
+                  ? result.slice(0, 20).map(async (item, i) => {
+                      const response = await axios.get(item.url);
+                      console.log(response);
+                      return (
+                        <div className="col-lg-3 mb-4" key={i}>
+                          <Card id={i} url={item.url} name={item.name} />
+                        </div>
+                      );
+                    })
                   : null}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
