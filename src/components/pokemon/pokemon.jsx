@@ -5,21 +5,15 @@ import "./style.css";
 
 class Pokemon extends Component {
   state = {
-    data: {
-      name: [],
-      url: []
-    },
+    data: [],
     searchQuery: ""
   };
 
   async componentDidMount() {
     const response = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon/?limit=50"
+      "https://pokeapi.co/api/v2/pokemon/?limit=500"
     );
-    this.setState({
-      data: response.map(item => (this.state.data.name = item.name))
-    });
-    console.log(this.state.data.name);
+    this.setState({ data: response.data.results });
   }
 
   handleChange = query => {
@@ -54,19 +48,15 @@ class Pokemon extends Component {
                   onChange={e => this.handleChange(e.currentTarget.value)}
                 />
               </div>
-              {/* <div className="row mt-5">
+              <div className="row mt-5">
                 {result
-                  ? result.slice(0, 20).map(async (item, i) => {
-                      const response = await axios.get(item.url);
-                      console.log(response);
-                      return (
-                        <div className="col-lg-3 mb-4" key={i}>
-                          <Card id={i} url={item.url} name={item.name} />
-                        </div>
-                      );
-                    })
+                  ? result.slice(0, 20).map((item, i) => (
+                      <div className="col-lg-3 mb-4" key={i}>
+                        <Card url={item.url} name={item.name} />
+                      </div>
+                    ))
                   : null}
-              </div> */}
+              </div>
             </div>
           </div>
         </div>

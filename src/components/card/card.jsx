@@ -13,11 +13,8 @@ class Card extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    if (prevProps === this.state.data.id) {
-      console.log("s");
-      const { data } = await axios.get(this.props.url);
-      this.setState({ data });
-    }
+    const { data } = await axios.get(this.props.url);
+    this.setState({ data });
   }
 
   render() {
