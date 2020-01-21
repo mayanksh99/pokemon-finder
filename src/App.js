@@ -1,11 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import Pokemon from "./components/pokemon/pokemon";
 
-class App extends Component {
-  render() {
-    return <Pokemon />;
-  }
+function App() {
+  return <Pokemon />;
 }
 
 export default App;
